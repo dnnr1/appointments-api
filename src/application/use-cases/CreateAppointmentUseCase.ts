@@ -1,16 +1,18 @@
 import { Appointment } from "../../domain/entities/Appointment";
 import { AppointmentDate } from "../../domain/value-objects/AppointmentDate";
 import { Identifier } from "../../domain/value-objects/Identifier";
-import { AppointmentInPastError } from "../../domain/errors/AppointmentInPastError";
-import { ScheduleConflictError } from "../../domain/errors/ScheduleConflictError";
-import { UserScheduleConflictError } from "../../domain/errors/UserScheduleConflictError";
+import {
+  AppointmentInPastError,
+  ScheduleConflictError,
+  UserScheduleConflictError,
+  UserNotFoundError,
+  ServiceNotFoundError,
+} from "../../domain/errors";
 import { AppointmentRepository } from "../interfaces/AppointmentRepository";
 import { DateProvider } from "../interfaces/DateProvider";
 import { CacheProvider } from "../interfaces/CacheProvider";
 import { UserRepository } from "../interfaces/UserRepository";
 import { ServiceRepository } from "../interfaces/ServiceRepository";
-import { UserNotFoundError } from "../../domain/errors/UserNotFoundError";
-import { ServiceNotFoundError } from "../../domain/errors/ServiceNotFoundError";
 
 export type CreateAppointmentInput = {
   userId: string;

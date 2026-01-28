@@ -1,0 +1,9 @@
+export { AppointmentCanceledError } from "./AppointmentCanceledError";
+export { AppointmentInPastError } from "./AppointmentInPastError";
+export { AppointmentNotFoundError } from "./AppointmentNotFoundError";
+export { CancelTooLateError } from "./CancelTooLateError";
+export { DomainError } from "./DomainError";
+export { ScheduleConflictError } from "./ScheduleConflictError";
+export { ServiceNotFoundError } from "./ServiceNotFoundError";
+export { UserNotFoundError } from "./UserNotFoundError";
+export { UserScheduleConflictError } from "./UserScheduleConflictError";

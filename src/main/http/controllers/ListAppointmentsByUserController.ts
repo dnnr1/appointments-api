@@ -6,6 +6,9 @@ export class ListAppointmentsByUserController {
 
   async handle(req: Request, res: Response): Promise<Response> {
     const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
     const result = await this.useCase.execute({ userId });
     return res.json(result);
   }

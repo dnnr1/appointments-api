@@ -7,7 +7,9 @@ export class CreateAppointmentController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { serviceId, date } = req.body;
     const userId = req.userId;
-
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
     const result = await this.useCase.execute({
       userId,
       serviceId,

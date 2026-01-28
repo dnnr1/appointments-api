@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import { env } from "../../config/env";
 
@@ -6,7 +6,11 @@ type JwtPayload = {
   sub: string;
 };
 
-export const auth = (req: Request, res: Response, next: NextFunction): void => {
+export const auth: RequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   const header = req.headers.authorization;
   if (!header) {
     res.status(401).json({ error: "Unauthorized" });

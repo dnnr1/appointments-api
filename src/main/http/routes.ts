@@ -1,4 +1,10 @@
-import { Router } from "express";
+import {
+  NextFunction,
+  Request,
+  RequestHandler,
+  Response,
+  Router,
+} from "express";
 import { CreateAppointmentController } from "./controllers/CreateAppointmentController";
 import { CancelAppointmentController } from "./controllers/CancelAppointmentController";
 import { RescheduleAppointmentController } from "./controllers/RescheduleAppointmentController";
@@ -9,8 +15,10 @@ import { useCases } from "../container";
 
 const router = Router();
 
-const asyncHandler = (fn: (req: any, res: any, next: any) => Promise<any>) => {
-  return (req: any, res: any, next: any) => {
+const asyncHandler = (
+  fn: (req: Request, res: Response, next: NextFunction) => Promise<unknown>,
+): RequestHandler => {
+  return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 };
