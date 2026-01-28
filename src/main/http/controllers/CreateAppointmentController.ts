@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateAppointmentUseCase } from "../../../application/use-cases/CreateAppointmentUseCase";
+import { HTTP_STATUS } from "../constants/status";
 
 export class CreateAppointmentController {
   constructor(private readonly useCase: CreateAppointmentUseCase) {}
@@ -8,7 +9,9 @@ export class CreateAppointmentController {
     const { serviceId, date } = req.body;
     const userId = req.userId;
     if (!userId) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .json({ error: "Unauthorized" });
     }
     const result = await this.useCase.execute({
       userId,
@@ -16,6 +19,6 @@ export class CreateAppointmentController {
       date: new Date(date),
     });
 
-    return res.status(201).json(result);
+    return res.status(HTTP_STATUS.CREATED).json(result);
   }
 }
