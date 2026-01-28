@@ -1,24 +1,24 @@
-import dayjs from "dayjs"
-import { DateProvider } from "../../application/interfaces/DateProvider"
+import dayjs from "dayjs";
+import { DateProvider } from "../../application/interfaces/DateProvider";
 
 export class DayjsDateProvider implements DateProvider {
   now(): Date {
-    return dayjs().toDate()
+    return dayjs().toDate();
   }
 
   isBefore(a: Date, b: Date): boolean {
-    return dayjs(a).isBefore(b)
+    return dayjs(a).isBefore(b);
   }
 
   diffInHours(a: Date, b: Date): number {
-    return dayjs(a).diff(b, "hour")
+    return dayjs(a).diff(b, "hour");
   }
 
   startOfDay(date: Date): Date {
-    return dayjs(date).startOf("day").toDate()
+    return dayjs(date).startOf("day").toDate();
   }
 
   endOfDay(date: Date): Date {
-    return dayjs(date).endOf("day").toDate()
+    return dayjs(date).endOf("day").toDate();
   }
 }

@@ -1,19 +1,19 @@
-import { Request, Response } from "express"
-import { CreateAppointmentUseCase } from "../../../application/use-cases/CreateAppointmentUseCase"
+import { Request, Response } from "express";
+import { CreateAppointmentUseCase } from "../../../application/use-cases/CreateAppointmentUseCase";
 
 export class CreateAppointmentController {
   constructor(private readonly useCase: CreateAppointmentUseCase) {}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { serviceId, date } = req.body
-    const userId = req.userId
+    const { serviceId, date } = req.body;
+    const userId = req.userId;
 
     const result = await this.useCase.execute({
       userId,
       serviceId,
-      date: new Date(date)
-    })
+      date: new Date(date),
+    });
 
-    return res.status(201).json(result)
+    return res.status(201).json(result);
   }
 }

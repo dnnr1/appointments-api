@@ -1,15 +1,15 @@
 export class AppointmentDate {
-  private readonly value: Date
+  private readonly value: Date;
 
   private constructor(value: Date) {
-    this.value = value
+    this.value = value;
   }
 
   static create(value: Date): AppointmentDate {
-    return new AppointmentDate(value)
+    return new AppointmentDate(value);
   }
 
   toDate(): Date {
-    return this.value
+    return this.value;
   }
 }

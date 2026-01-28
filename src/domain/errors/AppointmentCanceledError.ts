@@ -1,7 +1,7 @@
-import { DomainError } from "./DomainError"
+import { DomainError } from "./DomainError";
 
 export class AppointmentCanceledError extends DomainError {
   constructor() {
-    super("APPOINTMENT_CANCELED", "Appointment is canceled")
+    super("APPOINTMENT_CANCELED", "Appointment is canceled");
   }
 }

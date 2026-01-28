@@ -3,9 +3,5 @@
   "compilerOptions": {
     "declaration": false
   },
-  "exclude": [
-    "src/**/__tests__/**",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ]
+  "exclude": ["src/**/__tests__/**", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }
