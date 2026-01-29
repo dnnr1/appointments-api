@@ -6,6 +6,9 @@ import {
   Router,
 } from "express";
 import { CreateAppointmentController } from "./controllers/CreateAppointmentController";
+import { CreateUserController } from "./controllers/CreateUserController";
+import { DeleteUserController } from "./controllers/DeleteUserController";
+import { LoginUserController } from "./controllers/LoginUserController";
 import { CancelAppointmentController } from "./controllers/CancelAppointmentController";
 import { RescheduleAppointmentController } from "./controllers/RescheduleAppointmentController";
 import { ListAppointmentsByUserController } from "./controllers/ListAppointmentsByUserController";
@@ -26,6 +29,9 @@ const asyncHandler = (
 const createController = new CreateAppointmentController(
   useCases.createAppointment,
 );
+const createUserController = new CreateUserController(useCases.createUser);
+const loginUserController = new LoginUserController(useCases.loginUser);
+const deleteUserController = new DeleteUserController(useCases.deleteUser);
 const cancelController = new CancelAppointmentController(
   useCases.cancelAppointment,
 );
@@ -39,7 +45,22 @@ const listByDateController = new ListAppointmentsByDateController(
   useCases.listByDate,
 );
 
+router.post(
+  "/users",
+  asyncHandler((req, res) => createUserController.handle(req, res)),
+);
+
+router.post(
+  "/login",
+  asyncHandler((req, res) => loginUserController.handle(req, res)),
+);
+
 router.use(auth);
+
+router.delete(
+  "/users/me",
+  asyncHandler((req, res) => deleteUserController.handle(req, res)),
+);
 
 router.post(
   "/appointments",

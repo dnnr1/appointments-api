@@ -1,4 +1,5 @@
 import { Appointment } from "../../../domain/entities/Appointment";
+import { User } from "../../../domain/entities/User";
 import { AppointmentDate } from "../../../domain/value-objects/AppointmentDate";
 import { Identifier } from "../../../domain/value-objects/Identifier";
 import { AppointmentRepository } from "../../interfaces/AppointmentRepository";
@@ -120,14 +121,43 @@ export class FixedDateProvider implements DateProvider {
 }
 
 export class InMemoryUserRepository implements UserRepository {
-  private ids = new Set<string>();
+  private usersById = new Map<string, User>();
+  private usersByEmail = new Map<string, User>();
 
-  add(id: string): void {
-    this.ids.add(id);
+  add(id: string, email?: string, name = "User", passwordHash = "hash"): void {
+    const user = new User({
+      id: Identifier.create(id),
+      name,
+      email: (email ?? `${id}@example.com`).toLowerCase(),
+      passwordHash,
+    });
+    this.usersById.set(user.id.toString(), user);
+    this.usersByEmail.set(user.email, user);
   }
 
   async exists(id: string): Promise<boolean> {
-    return this.ids.has(id);
+    return this.usersById.has(id);
+  }
+
+  async existsByEmail(email: string): Promise<boolean> {
+    return this.usersByEmail.has(email);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.usersByEmail.get(email) ?? null;
+  }
+
+  async create(user: User): Promise<void> {
+    this.usersById.set(user.id.toString(), user);
+    this.usersByEmail.set(user.email, user);
+  }
+
+  async delete(id: string): Promise<void> {
+    const user = this.usersById.get(id);
+    if (user) {
+      this.usersById.delete(id);
+      this.usersByEmail.delete(user.email);
+    }
   }
 }
 

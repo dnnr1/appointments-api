@@ -6,6 +6,9 @@ import { RedisCacheProvider } from "../infrastructure/cache/RedisCacheProvider";
 import { DayjsDateProvider } from "../infrastructure/date/DayjsDateProvider";
 import { PinoLogger } from "../infrastructure/logger/PinoLogger";
 import { CreateAppointmentUseCase } from "../application/use-cases/CreateAppointmentUseCase";
+import { CreateUserUseCase } from "../application/use-cases/CreateUserUseCase";
+import { DeleteUserUseCase } from "../application/use-cases/DeleteUserUseCase";
+import { LoginUserUseCase } from "../application/use-cases/LoginUserUseCase";
 import { CancelAppointmentUseCase } from "../application/use-cases/CancelAppointmentUseCase";
 import { RescheduleAppointmentUseCase } from "../application/use-cases/RescheduleAppointmentUseCase";
 import { ListAppointmentsByUserUseCase } from "../application/use-cases/ListAppointmentsByUserUseCase";
@@ -22,6 +25,9 @@ const dateProvider = new DayjsDateProvider();
 const logger = new PinoLogger();
 
 export const useCases = {
+  createUser: new CreateUserUseCase(userRepository),
+  loginUser: new LoginUserUseCase(userRepository, env.jwtSecret),
+  deleteUser: new DeleteUserUseCase(userRepository),
   createAppointment: new CreateAppointmentUseCase(
     appointmentRepository,
     userRepository,
